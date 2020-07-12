@@ -1,0 +1,94 @@
+.popup {
+    display: none;
+    position: relative;
+}
+
+.popup:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.popup_opened {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup__container {
+    position: fixed;
+    top: 50%;
+    max-width: 430px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+.popup__heading {
+    margin: 34px 64px 39px 36px;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.popup__name {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    width: 358px;
+    height: 27px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.popup__occupation {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    width: 358px;
+    height: 27px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.popup__save-button {
+    width: 358px;
+    height: 50px;
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 2px;
+    margin: 36px 48px 36px 36px;
+    transition: background-color 0.4s linear;
+}
+
+.popup__save-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup__close-button {
+    width: 40.7px;
+    height: 40.7px;
+    background-color: transparent;
+    background-image: url(../../images/close-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    box-sizing: border-box;
+    transition: opacity 0.4s linear;
+    transform: translate(230px, -40.7px)
+}
+
+.popup__close-button:hover {
+    opacity: 0.6;
+}
