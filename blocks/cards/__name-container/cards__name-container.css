@@ -1,0 +1,6 @@
+.cards__name-container {
+    margin: 21px 25px 15px 31px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
