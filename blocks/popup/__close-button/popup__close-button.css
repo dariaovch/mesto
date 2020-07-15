@@ -8,7 +8,9 @@
     border: none;
     box-sizing: border-box;
     transition: opacity 0.4s linear;
-    transform: translate(470px, -175px);
+    position: relative;
+    top: -172px;
+    left: 470px;
     padding: 0;
 }
 
@@ -21,7 +23,8 @@
         width: 35px;
         height: 35px;
         background-size: 35px 35px;
-        transform: translate(360px, -165px);
+        top: -155px;
+        left: 355px;
     }
 }
 
@@ -30,7 +33,8 @@
         width: 25px;
         height: 25px;
         background-size: 25px 25px;
-        transform: translate(300px, -170px);
+        top: 0;
+        left: 0;
     }
 }
 
@@ -38,6 +42,5 @@
     .popup__close-button {
       align-self: flex-end;
       margin-right: 19px;
-      transform: translate(0, 0);
     }
 }
