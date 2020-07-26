@@ -1,8 +1,12 @@
 @import url(./__container/popup__container.css);
+@import url(./__form/popup__form.css);
 @import url(./__heading/popup__heading.css);
 @import url(./__input/popup__input.css);
 @import url(./__save-button/popup__save-button.css);
 @import url(./__close-button/popup__close-button.css);
+@import url(./__figure/popup__figure.css);
+@import url(./__image/popup__image.css);
+@import url(./__image-caption/popup__image-caption.css);
 
 .popup {
     visibility: hidden;
@@ -17,11 +21,8 @@
     z-index: 1;
 }
 
-.popup__figure {
-    
-}
 
-.popup__image {
-    max-width: 75vw;
-    max-height: 75vh;
-}
+
+
+
+

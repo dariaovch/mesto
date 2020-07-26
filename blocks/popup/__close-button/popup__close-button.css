@@ -8,10 +8,9 @@
     border: none;
     box-sizing: border-box;
     transition: opacity 0.4s linear;
-    position: relative;
-    top: -172px;
-    left: 470px;
     padding: 0;
+    align-self: flex-end;
+    margin-right: -40.7px;
 }
 
 .popup__close-button:hover {
@@ -23,8 +22,7 @@
         width: 35px;
         height: 35px;
         background-size: 35px 35px;
-        top: -155px;
-        left: 355px;
+        margin-right: -35px;
     }
 }
 
@@ -33,14 +31,12 @@
         width: 25px;
         height: 25px;
         background-size: 25px 25px;
-        top: 0;
-        left: 0;
+        margin-right: -25px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .popup__close-button {
-      align-self: flex-end;
-      margin-right: 19px;
+      margin-right: 0;
     }
 }
