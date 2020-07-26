@@ -102,7 +102,7 @@ openEditProfilePopupButton.addEventListener('click', () => {
 openAddCardPopupButton.addEventListener('click', () => {
     togglePopup(addCardPopup);
     inputPlace.value = ('Название');
-    inputLink.value = ('Сссылка на картинку');
+    inputLink.value = ('Ссылка на картинку');
 });
 
 closeEditProfilePopupButton.addEventListener('click', () => {

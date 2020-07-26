@@ -19,24 +19,9 @@
 
 @media screen and (max-width: 640px) {
     .popup__close-button {
-        width: 35px;
-        height: 35px;
-        background-size: 35px 35px;
-        margin-right: -35px;
-    }
-}
-
-@media screen and (max-width: 425px) {
-    .popup__close-button {
-        width: 25px;
-        height: 25px;
-        background-size: 25px 25px;
-        margin-right: -25px;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .popup__close-button {
-      margin-right: 0;
+        width: 30px;
+        height: 30px;
+        background-size: 30px 30px;
+        margin-right: -30px;
     }
 }
