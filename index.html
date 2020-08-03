@@ -43,8 +43,10 @@
             <button class="popup__close-button" type="button" aria-label="close"></button>
             <form class="popup__form" method="POST" name="edit-profile">
                 <h2 class="popup__heading">Редактировать профиль</h2>
-                <input class="popup__input popup__input_name" type="text" name="name" value="Жак-Ив Кусто">
-                <input class="popup__input popup__input_occupation" type="text" name="occupation" value="Исследователь океана">
+                <input class="popup__input popup__input_name" type="text" name="name" value="Жак-Ив Кусто" required minlength="2" maxlength="40">
+                <span class="popup__form-error" id="name-error"></span>
+                <input class="popup__input popup__input_occupation" type="text" name="occupation" value="Исследователь океана" required minlength="2" maxlength="200">
+                <span class="popup__form-error" id="occupation-error"></span>
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
             </div>
@@ -55,8 +57,10 @@
             <button class="popup__close-button" type="button" aria-label="close"></button>
             <form class="popup__form" method="POST" name="add-card">
                 <h2 class="popup__heading">Новое место</h2>
-                <input class="popup__input popup__input_place" type="text" name="place" value="Название">
-                <input class="popup__input popup__input_link" type="text" name="link" value="Ссылка на картинку">
+                <input class="popup__input popup__input_place" type="text" name="place" value="Название" required minlength="1" maxlength="30">
+                <span class="popup__form-error" id="place-error"></span>
+                <input class="popup__input popup__input_link" type="url" name="link" value="Ссылка на картинку" required>
+                <span class="popup__form-error" id="link-error"></span>
                 <button type="submit" class="popup__save-button">Создать</button>
             </form>
             </div>
@@ -83,6 +87,7 @@
           </li>
         </template>
 
+        <script src="./scripts/validation.js"></script>
         <script src="./scripts/initial-cards.js"></script>
         <script src="./scripts/index.js"></script>
     </body>
