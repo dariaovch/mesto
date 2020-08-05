@@ -38,20 +38,15 @@ function togglePopup(popup) {
     if (!popup.classList.contains('popup_opened')) {
         popup.classList.add('popup_opened');
         document.addEventListener('keydown', (evt) => {
-            if (evt.key === 'Escape'){
-              popup.classList.remove('popup_opened');
-            }
+            escapePopup(evt);
         });
     } else {
         popup.classList.remove('popup_opened');
         document.removeEventListener('keydown', (evt) => {
-            if (evt.key === 'Escape'){
-              popup.classList.remove('popup_opened');
-            }
+            escapePopup(evt);
         });
     }
 }
-
 
 //Submit data from profile editing popup
 function formSubmitHandler(evt) {
@@ -104,17 +99,34 @@ function renderCard(data) {
     grid.prepend(createCard(data));
 }
 
+//Closing popup windows by click on overlay & by escape key
+function overlayClickHandler(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+        evt.target.classList.remove('popup_opened');
+    }
+}
+
+function escapePopup(evt) {
+    popups.forEach((popup) => {
+        if (evt.key === 'Escape') {
+     popup.classList.remove('popup_opened');
+   }
+ });
+}
+
 //Event listeners for popup open&close buttons
 openEditProfilePopupButton.addEventListener('click', () => {
     togglePopup(editProfilePopup);
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
 });
+
 openAddCardPopupButton.addEventListener('click', () => {
     togglePopup(addCardPopup);
     inputPlace.value = ('Название');
     inputLink.value = ('Ссылка на картинку');
 });
+
 
 closeEditProfilePopupButton.addEventListener('click', () => {
     togglePopup(editProfilePopup);
@@ -126,6 +138,9 @@ closeShowCardPopupButton.addEventListener('click', () => {
   togglePopup(showCardPopup);
 });
 
+popups.forEach((item) => {
+    item.addEventListener('mousedown', overlayClickHandler);
+})
 
 //Event listeners for forms submission
 editForm.addEventListener('submit', formSubmitHandler);
@@ -135,15 +150,3 @@ addCardForm.addEventListener('submit', addCardSubmitHandler);
 initialCards.forEach((data) => {
     renderCard(data);
 });
-
-
-popups.forEach((item) => {
-    item.addEventListener('click', overlayClickHandler);
-})
-
-
-function overlayClickHandler(evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-        evt.target.classList.remove('popup_opened');
-    }
-}

@@ -4,6 +4,10 @@
 @import url(./__input/popup__input.css);
 @import url(./__save-button/popup__save-button.css);
 @import url(./__close-button/popup__close-button.css);
+@import url(./__input/_type/popup__input_type_error.css);
+@import url(./__form-error/popup__form-error.css);
+@import url(./__form-error/_visible/popup__form-error_visible.css);
+@import url(./__save-button/_disabled/popup__save-button_disabled.css);
 @import url(./__figure/popup__figure.css);
 @import url(./__image/popup__image.css);
 @import url(./__image-caption/popup__image-caption.css);
@@ -21,15 +25,6 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
-
-.popup__form-error {
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 15px;
-    color: #FF0000;
-}
-
-
 
 
 
