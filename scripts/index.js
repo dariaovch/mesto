@@ -13,6 +13,10 @@ const closeEditProfilePopupButton = editProfilePopup.querySelector('.popup__clos
 const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close-button');
 const closeShowCardPopupButton = showCardPopup.querySelector('.popup__close-button');
 
+//Submit buttons
+const editProfileButton = editProfilePopup.querySelector('.popup__save-button');
+const addCardButton = addCardPopup.querySelector('.popup__save-button');
+
 //Forms and data inputs
 const editForm = editProfilePopup.querySelector('.popup__form');
 const addCardForm = addCardPopup.querySelector('.popup__form');
@@ -61,6 +65,8 @@ function addCardSubmitHandler(evt) {
     evt.preventDefault();
     renderCard({name: inputPlace.value, link: inputLink.value});
     togglePopup(addCardPopup);
+    addCardButton.classList.add('popup__save-button_disabled');
+    addCardButton.disabled = true;
 }
 
 //Card creation
@@ -114,17 +120,33 @@ function escapePopup(evt) {
  });
 }
 
+//Removing error messages
+function resetValidation(form, input) {
+    const error = form.querySelector(`#${input.id}-error`)
+    input.classList.remove('popup__input_type_error');
+    error.classList.remove('popup__form-error_visible');
+    error.textContent = '';
+}
+
+
 //Event listeners for popup open&close buttons
 openEditProfilePopupButton.addEventListener('click', () => {
     togglePopup(editProfilePopup);
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
+    resetValidation(editForm, inputName);
+    resetValidation(editForm, inputOccupation);
+    editProfileButton.classList.remove('popup__save-button_disabled');
+    editProfileButton.disabled = false;
 });
+
 
 openAddCardPopupButton.addEventListener('click', () => {
     togglePopup(addCardPopup);
     inputPlace.value = ('Название');
     inputLink.value = ('Ссылка на картинку');
+    resetValidation(addCardForm, inputPlace);
+    resetValidation(addCardForm, inputLink);
 });
 
 
@@ -150,3 +172,4 @@ addCardForm.addEventListener('submit', addCardSubmitHandler);
 initialCards.forEach((data) => {
     renderCard(data);
 });
+
