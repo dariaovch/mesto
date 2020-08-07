@@ -83,4 +83,12 @@ function toggleButtonState(inputList, submitButton, inactiveButtonClass) {
      })
    }
 
+//Removing error messages
+function resetValidation(form, input) {
+    const error = form.querySelector(`#${input.id}-error`)
+    input.classList.remove('popup__input_type_error');
+    error.classList.remove('popup__form-error_visible');
+    error.textContent = '';
+}
+
 enableValidation(objectOfValidation);
