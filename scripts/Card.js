@@ -26,8 +26,8 @@ export default class Card {
         return cardElement;
     }
 
-    _likeCardHandler(evt) {
-        this._cardLikeButton.classList.add('cards__like-button_active');
+    _likeCardHandler() {
+        this._cardLikeButton.classList.toggle('cards__like-button_active');
     }
 
     _deleteCardHandler() {
