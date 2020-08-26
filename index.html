@@ -41,7 +41,7 @@
         <div class="popup popup_type_edit-profile">
             <div class="popup__container">
             <button class="popup__close-button" type="button" aria-label="close"></button>
-            <form class="popup__form" method="POST" name="edit-profile" novalidate>
+            <form class="popup__form popup__form_type_edit" method="POST" name="edit-profile" novalidate>
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <input class="popup__input popup__input_name" type="text" name="name" id="name" value="Жак-Ив Кусто" required minlength="2" maxlength="40">
                 <span class="popup__form-error" id="name-error"></span>
@@ -55,7 +55,7 @@
         <div class="popup popup_type_add-card">
             <div class="popup__container">
             <button class="popup__close-button" type="button" aria-label="close"></button>
-            <form class="popup__form" method="POST" name="add-card" novalidate>
+            <form class="popup__form popup__form_type_add" method="POST" name="add-card" novalidate>
                 <h2 class="popup__heading">Новое место</h2>
                 <input class="popup__input popup__input_place" type="text" name="place" id="place" placeholder="Название" required minlength="1" maxlength="30">
                 <span class="popup__form-error" id="place-error"></span>
@@ -87,8 +87,6 @@
           </li>
         </template>
 
-        <script src="./scripts/initial-cards.js"></script>
-        <script src="./scripts/validation.js"></script>
-        <script src="./scripts/index.js"></script>
+        <script type="module" src="./scripts/index.js"></script>
     </body>
 </html>

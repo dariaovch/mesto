@@ -1,3 +1,8 @@
+import { openPopup, closePopup, overlayClickHandler } from './utils.js';
+import { initialCards } from './initial-cards.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 //Popup windows
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const addCardPopup = document.querySelector('.popup_type_add-card');
@@ -33,21 +38,6 @@ const inputLink = document.querySelector('.popup__input_link');
 const cardTemplate = document.querySelector('.cards__template').content.querySelector('.cards__item');
 const grid = document.querySelector('.cards__grid');
 
-//showImagePopup content
-const popupImage = document.querySelector('.popup__image');
-const popupHeading = document.querySelector('.popup__image-caption');
-
-//Open&close popup window
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', escapePopup);
-}
-
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', escapePopup);
-}
-
 //Submit data from profile editing popup
 function formSubmitHandler(evt) {
     evt.preventDefault();
@@ -59,61 +49,19 @@ function formSubmitHandler(evt) {
 //Submit data from card adding popup
 function addCardSubmitHandler(evt) {
     evt.preventDefault();
-    renderCard({name: inputPlace.value, link: inputLink.value});
+    renderCardItem({name: inputPlace.value, link: inputLink.value});
     closePopup(addCardPopup);
     addCardButton.classList.add('popup__save-button_disabled');
     addCardButton.disabled = true;
 }
 
-//Card creation
-function createCard(data) {
-    const cardElement = cardTemplate.cloneNode(true);
-
-    const cardImage = cardElement.querySelector('.cards__image');
-    const cardHeading = cardElement.querySelector('.cards__heading');
-    const cardLikeButton = cardElement.querySelector('.cards__like-button');
-    const cardDeleteButton = cardElement.querySelector('.cards__delete-button');
-    
-    cardLikeButton.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('cards__like-button_active');
-    });
-
-    cardDeleteButton.addEventListener('click', (evt) => {
-        evt.target.closest('.cards__item').remove();
-    });
-    
-    cardImage.src = data.link;
-    cardHeading.textContent = data.name;
-    cardImage.alt = data.name;
-
-    cardImage.addEventListener('click', () => {
-       openPopup(showCardPopup);
-       popupImage.src = cardImage.src;
-       popupHeading.textContent = cardHeading.textContent;
-       popupImage.alt = cardImage.alt;
-    });
-
-    return cardElement;
-}
-
-//Card rendering
-function renderCard(data) {
-    grid.prepend(createCard(data));
-}
-
-//Closing popup windows by click on overlay & by escape key
-function overlayClickHandler(evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-        evt.target.classList.remove('popup_opened');
+//Removing validation errors
+function resetValidation(form, input) {
+        const error = form.querySelector(`#${input.id}-error`)
+        input.classList.remove('popup__input_type_error');
+        error.classList.remove('popup__form-error_visible');
+        error.textContent = '';
     }
-}
-
-function escapePopup(evt) {
-    const openedPopup = document.querySelector('.popup_opened');
-    if (evt.key === 'Escape') {
-        closePopup(openedPopup);
-    }
-} 
 
 //Event listeners for popup open&close buttons
 openEditProfilePopupButton.addEventListener('click', () => {
@@ -129,8 +77,8 @@ openEditProfilePopupButton.addEventListener('click', () => {
 
 openAddCardPopupButton.addEventListener('click', () => {
     openPopup(addCardPopup);
-    inputPlace.value = ('Название');
-    inputLink.value = ('Ссылка на картинку');
+    inputPlace.value = '';
+    inputLink.value = '';
     resetValidation(addCardForm, inputPlace);
     resetValidation(addCardForm, inputLink);
 });
@@ -154,8 +102,35 @@ popups.forEach((item) => {
 editForm.addEventListener('submit', formSubmitHandler);
 addCardForm.addEventListener('submit', addCardSubmitHandler);
 
-//Renedering cards from initial array
+
+//Rendering cards from initial array
+const renderCardItem = (data) => {
+    const card = new Card(data, '.cards__template');
+        const cardElement = card.createCard();
+
+        grid.prepend(cardElement);
+}
+
 initialCards.forEach((data) => {
-    renderCard(data);
-});
+       renderCardItem(data);
+    });
+
+
+//Default settings for validation
+const objectOfValidation = {
+    formElement:'.popup__form',
+    inputElement:'.popup__input',
+    submitButtonElement:'.popup__save-button',
+    inactiveButtonClass:'popup__save-button_disabled',
+    inputErrorClass:'popup__input_type_error',
+    errorClass:'popup__form-error_visible'
+  }
+
+
+//Creating validation objects and enable validation
+const editFormValidator = new FormValidator(objectOfValidation, editForm);
+editFormValidator.enableValidation();
+
+const addCardValidator = new FormValidator(objectOfValidation, addCardForm);
+addCardValidator.enableValidation();
 
