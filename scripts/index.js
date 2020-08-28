@@ -55,17 +55,21 @@ function addCardSubmitHandler(evt) {
 //Event listeners for popup open&close buttons
 openEditProfilePopupButton.addEventListener('click', () => {
     openPopup(editProfilePopup);
+    editForm.reset();
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
-    editForm.reset();
+    editProfileButton.disabled = false;
+    editProfileButton.classList.remove('popup__save-button_disabled');
 });
 
 
 openAddCardPopupButton.addEventListener('click', () => {
     openPopup(addCardPopup);
+    addCardForm.reset();
     inputPlace.value = '';
     inputLink.value = '';
-    addCardForm.reset();
+    addCardButton.disabled = true;
+    addCardButton.classList.add('popup__save-button_disabled');
 });
 
  
