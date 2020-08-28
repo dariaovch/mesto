@@ -13,7 +13,7 @@ export default class Card {
         this._cardSelector = cardSelector;
     }
 
-    _getCard() {
+    _getTemplate() {
         const cardElement = document.
         querySelector(this._cardSelector)
         .content
@@ -32,6 +32,7 @@ export default class Card {
 
     _deleteCardHandler() {
         this._element.remove();
+        this._element = null;
     }
 
     _setEventListeners() {
@@ -55,12 +56,12 @@ export default class Card {
     _openPopupHandler() {
         openPopup(showCardPopup);
         popupImage.src = this._cardImage.src;
-        popupHeading.textContent = this._getCard().querySelector('.cards__heading').textContent;
+        popupHeading.textContent = this._getTemplate().querySelector('.cards__heading').textContent;
         popupImage.alt = this._cardImage.alt;
     }
 
     createCard() {
-        this._element = this._getCard();
+        this._element = this._getTemplate();
         this._setEventListeners();
     
         return this._element;

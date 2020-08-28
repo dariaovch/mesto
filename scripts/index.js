@@ -34,8 +34,7 @@ const profileOccupation = document.querySelector('.profile__occupation');
 const inputPlace = document.querySelector('.popup__input_place');
 const inputLink = document.querySelector('.popup__input_link');
 
-//Card template and list
-const cardTemplate = document.querySelector('.cards__template').content.querySelector('.cards__item');
+//Cards list
 const grid = document.querySelector('.cards__grid');
 
 //Submit data from profile editing popup
@@ -55,21 +54,11 @@ function addCardSubmitHandler(evt) {
     addCardButton.disabled = true;
 }
 
-//Removing validation errors
-function resetValidation(form, input) {
-        const error = form.querySelector(`#${input.id}-error`)
-        input.classList.remove('popup__input_type_error');
-        error.classList.remove('popup__form-error_visible');
-        error.textContent = '';
-    }
-
 //Event listeners for popup open&close buttons
 openEditProfilePopupButton.addEventListener('click', () => {
     openPopup(editProfilePopup);
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
-    resetValidation(editForm, inputName);
-    resetValidation(editForm, inputOccupation);
     editProfileButton.classList.remove('popup__save-button_disabled');
     editProfileButton.disabled = false;
 });
@@ -79,8 +68,6 @@ openAddCardPopupButton.addEventListener('click', () => {
     openPopup(addCardPopup);
     inputPlace.value = '';
     inputLink.value = '';
-    resetValidation(addCardForm, inputPlace);
-    resetValidation(addCardForm, inputLink);
 });
 
 
@@ -106,9 +93,9 @@ addCardForm.addEventListener('submit', addCardSubmitHandler);
 //Rendering cards from initial array
 const renderCardItem = (data) => {
     const card = new Card(data, '.cards__template');
-        const cardElement = card.createCard();
+    const cardElement = card.createCard();
 
-        grid.prepend(cardElement);
+    grid.prepend(cardElement);
 }
 
 initialCards.forEach((data) => {
@@ -133,4 +120,3 @@ editFormValidator.enableValidation();
 
 const addCardValidator = new FormValidator(objectOfValidation, addCardForm);
 addCardValidator.enableValidation();
-
