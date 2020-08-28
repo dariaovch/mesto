@@ -1,4 +1,4 @@
-import { openPopup, closePopup, overlayClickHandler } from './utils.js';
+import { openPopup, closePopup, overlayClickHandler, escapePopup } from './utils.js';
 import { initialCards } from './initial-cards.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
@@ -50,8 +50,6 @@ function addCardSubmitHandler(evt) {
     evt.preventDefault();
     renderCardItem({name: inputPlace.value, link: inputLink.value});
     closePopup(addCardPopup);
-    addCardButton.classList.add('popup__save-button_disabled');
-    addCardButton.disabled = true;
 }
 
 //Event listeners for popup open&close buttons
@@ -59,8 +57,7 @@ openEditProfilePopupButton.addEventListener('click', () => {
     openPopup(editProfilePopup);
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
-    editProfileButton.classList.remove('popup__save-button_disabled');
-    editProfileButton.disabled = false;
+    editForm.reset();
 });
 
 
@@ -68,8 +65,10 @@ openAddCardPopupButton.addEventListener('click', () => {
     openPopup(addCardPopup);
     inputPlace.value = '';
     inputLink.value = '';
+    addCardForm.reset();
 });
 
+ 
 
 closeEditProfilePopupButton.addEventListener('click', () => {
     closePopup(editProfilePopup);

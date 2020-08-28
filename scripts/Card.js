@@ -14,11 +14,8 @@ export default class Card {
     }
 
     _getTemplate() {
-        const cardElement = document.
-        querySelector(this._cardSelector)
-        .content
-        .querySelector('.cards__item')
-        .cloneNode(true);
+        const cardTemplate = document.querySelector(this._cardSelector);
+        const cardElement = cardTemplate.content.querySelector('.cards__item').cloneNode(true);
 
         cardElement.querySelector('.cards__image').src = this._cardImage;
         cardElement.querySelector('.cards__heading').textContent = this._cardHeading ;
