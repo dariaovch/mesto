@@ -1,4 +1,4 @@
-import { ESC_KEY } from './constants.js';
+import { ESC_KEY } from '../utils/constants.js';
 
 export default class Popup {
     constructor(popupSelector) {
@@ -34,7 +34,7 @@ export default class Popup {
 
     _overlayClickHandler(evt) {
         if (evt.target.classList.contains('popup_opened')) {
-            evt.target.classList.remove('popup_opened');
+            this.close();
         }
     }
    

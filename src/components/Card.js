@@ -10,9 +10,6 @@ export default class Card {
         const cardTemplate = document.querySelector(this._cardSelector);
         const cardElement = cardTemplate.content.querySelector('.cards__item').cloneNode(true);
 
-        cardElement.querySelector('.cards__image').src = this._cardImage;
-        cardElement.querySelector('.cards__heading').textContent = this._cardHeading ;
-
         return cardElement;
     }
 
@@ -39,12 +36,14 @@ export default class Card {
         });
 
         this._cardImage.addEventListener('click', () => {
-            this._openPopupHandler();
+            this._openPopupHandler(this._cardHeading, this._cardImage);
         })
     }
 
     createCard() {
         this._element = this._getTemplate();
+        this._element.querySelector('.cards__image').src = this._cardImage;
+        this._element.querySelector('.cards__heading').textContent = this._cardHeading;
         this._setEventListeners();
     
         return this._element;
