@@ -6,6 +6,10 @@
     color: #000000;
 }
 
+.popup__heading_type_small-popup {
+    margin-bottom: 38px;
+}
+
 @media screen and (max-width: 640px) {
     .popup__heading {
         margin: 20px auto 30px auto;

@@ -5,8 +5,9 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import PopupWithSubmit from '../components/PopupWithSubmit.js';
 
 //Creating instances for popup windows
 const profileInfo = new UserInfo({ nameElement: profileName, occupationElement: profileOccupation });
@@ -21,6 +22,10 @@ const addCardPopup = new PopupWithForm('.popup_type_add-card', { submitHandler: 
     addCardPopup.close();
 }
 });
+
+const updateAvatarPopup = new PopupWithForm('.popup_type_update-avatar', { submitHandler: () => {
+
+}});
 
 const showCardPopup = new PopupWithImage('.popup_type_show-card');
 
@@ -39,6 +44,13 @@ openAddCardPopupButton.addEventListener('click', () => {
 });
 
 addCardPopup.setEventListeners();
+
+const avatarElement = document.querySelector('.profile__img-container');
+avatarElement.addEventListener('click', () => {
+    updateAvatarPopup.open();
+})
+
+updateAvatarPopup.setEventListeners();
 
 
 //Submit handler for rendering cards on page
@@ -61,6 +73,12 @@ const cardGrid = new Section({ items: initialCards, renderer: (item, isArray) =>
 cardGrid.renderItems();
 
 
+export const deleteCardPopup = new PopupWithSubmit('.popup_type_delete-card', { submitHandler: () => {
+
+} 
+});
+
+const updateAvatarForm = document.querySelector('.popup__form_type_update');
 
 //Creating validation objects and enable validation
 const editFormValidator = new FormValidator(objectOfValidation, editForm);
@@ -69,3 +87,6 @@ editFormValidator.enableValidation();
 
 const addCardValidator = new FormValidator(objectOfValidation, addCardForm);
 addCardValidator.enableValidation();
+
+const updateAvatarValidator = new FormValidator(objectOfValidation, updateAvatarForm)
+updateAvatarValidator.enableValidation();

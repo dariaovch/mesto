@@ -66,7 +66,7 @@ export default class FormValidator {
     _resetButtonState() {
         if(this._formSelector.classList.contains('popup__form_type_edit')) {
             this._enableButton();
-        } else if(this._formSelector.classList.contains('popup__form_type_add')) {
+        } else {// if(this._formSelector.classList.contains('popup__form_type_add')) {
             this._disableButton();
         }
     }

@@ -1,3 +1,5 @@
+import { deleteCardPopup } from '../pages/index.js'
+
 export default class Card {
     constructor({ data, openPopupHandler }, cardSelector) {
         this._cardImage = data.link;
@@ -32,7 +34,8 @@ export default class Card {
         });
 
         this._cardDeleteButton.addEventListener('click', () => {
-            this._deleteCardHandler();
+            //this._deleteCardHandler();
+            deleteCardPopup.open();
         });
 
         this._cardImage.addEventListener('click', () => {
