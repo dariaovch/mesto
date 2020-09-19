@@ -1,11 +1,13 @@
-import { deleteCardPopup } from '../pages/index.js'
-
 export default class Card {
-    constructor({ data, openPopupHandler }, cardSelector) {
+    constructor({ data, openPopupHandler, putLikeHandler, deleteLikeHandler, deleteHandler }, cardSelector) {
         this._cardImage = data.link;
-        this._cardHeading = data.place;
+        this._cardHeading = data.name;
         this._openPopupHandler = openPopupHandler;
+        this._putLikeHandler = putLikeHandler;
+        this._deleteLikeHandler = deleteLikeHandler;
+        this._deleteHandler = deleteHandler
         this._cardSelector = cardSelector;
+        this._isOwner = (data.owner._id === "60814093570efb1033630dd6");
     }
 
     _getTemplate() {
@@ -15,11 +17,25 @@ export default class Card {
         return cardElement;
     }
 
-    _likeCardHandler() {
-        this._cardLikeButton.classList.toggle('cards__like-button_active');
+    _putLikeHandler() {
+        this._putLikeHandler();
     }
 
-    _deleteCardHandler() {
+    _deleteLikeHandler() {
+        this._deleteLikeHandler();
+    }
+
+    _likeHandler(evt) {
+        if(evt.target.classList.contains('cards__like-button_active')) {
+            this._deleteLikeHandler();
+            evt.target.classList.remove('cards__like-button_active');
+        } else {
+            this._putLikeHandler();
+            evt.target.classList.add('cards__like-button_active');
+        }
+    }
+
+    remove() {
         this._element.remove();
         this._element = null;
     }
@@ -27,15 +43,20 @@ export default class Card {
     _setEventListeners() {
         this._cardLikeButton = this._element.querySelector('.cards__like-button');
         this._cardDeleteButton = this._element.querySelector('.cards__delete-button');
+        if(this._isOwner) {
+            this._cardDeleteButton.classList.add('cards__delete-button_visible');
+        } else {
+            this._cardDeleteButton.classList.remove('.cards__delete-button_visible');
+        }
+        
         this._cardImage = this._element.querySelector('.cards__image');
 
-        this._cardLikeButton.addEventListener('click', () => {
-            this._likeCardHandler();
+        this._cardLikeButton.addEventListener('click', (evt) => {
+            this._likeHandler(evt);
         });
 
         this._cardDeleteButton.addEventListener('click', () => {
-            //this._deleteCardHandler();
-            deleteCardPopup.open();
+            this._deleteHandler();
         });
 
         this._cardImage.addEventListener('click', () => {
@@ -47,6 +68,7 @@ export default class Card {
         this._element = this._getTemplate();
         this._element.querySelector('.cards__image').src = this._cardImage;
         this._element.querySelector('.cards__heading').textContent = this._cardHeading;
+
         this._setEventListeners();
     
         return this._element;

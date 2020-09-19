@@ -12,6 +12,7 @@ export const openAddCardPopupButton = document.querySelector('.profile__add-butt
 //Forms and data inputs
 export const editForm = document.querySelector('.popup__form_type_edit');
 export const addCardForm = document.querySelector('.popup__form_type_add');
+export const updateAvatarForm = document.querySelector('.popup__form_type_update');
 
 export const inputName = document.querySelector('.popup__input_name');
 export const inputOccupation = document.querySelector('.popup__input_occupation');
@@ -29,3 +30,10 @@ export const objectOfValidation = {
     inputErrorClass:'popup__input_type_error',
     errorClass:'popup__form-error_visible'
   }
+
+export const options = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-15/',
+  headers: {
+        authorization: '57f413af-09ac-4c6d-a557-b4a54c66383d',
+      }
+  };

@@ -1,4 +1,5 @@
 .cards__delete-button {
+    display: none;
     border: none;
     background: transparent;
     background-image: url(../../../images/delete.svg);
@@ -10,6 +11,10 @@
     position: absolute;
     top: 18px;
     left: 249px;
+}
+
+.cards__delete-button_visible {
+    display: flex;
 }
 
 .cards__delete-button:hover {

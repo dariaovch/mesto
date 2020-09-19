@@ -8,7 +8,7 @@ export default class UserInfo {
         this._profileInfo = {};
         
         this._profileInfo.name = this._name.textContent;
-        this._profileInfo.occupation = this._occupation.textContent;
+        this._profileInfo.about = this._occupation.textContent;
       
        return this._profileInfo;
        
@@ -16,6 +16,6 @@ export default class UserInfo {
 
     setUserInfo(formData) {
         this._name.textContent = formData.name;
-        this._occupation.textContent = formData.occupation;
+        this._occupation.textContent = formData.about;
     }
 }
