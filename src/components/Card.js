@@ -1,5 +1,5 @@
 export default class Card {
-    constructor({ data, openPopupHandler, putLikeHandler, deleteLikeHandler, deleteHandler }, cardSelector) {
+    constructor({ data, openPopupHandler, putLikeHandler, deleteLikeHandler, deleteHandler }, cardSelector, userId) {
         this._cardImage = data.link;
         this._cardHeading = data.name;
         this._openPopupHandler = openPopupHandler;
@@ -7,7 +7,8 @@ export default class Card {
         this._deleteLikeHandler = deleteLikeHandler;
         this._deleteHandler = deleteHandler
         this._cardSelector = cardSelector;
-        this._isOwner = (data.owner._id === "60814093570efb1033630dd6");
+        this._isOwner = (data.owner._id === userId);
+        this._likes = data.likes;
     }
 
     _getTemplate() {
@@ -16,6 +17,12 @@ export default class Card {
 
         return cardElement;
     }
+
+    _countLikes() {
+        this._likeCounter = this._element.querySelector('.cards__like-counter');
+        this._likeCounter.textContent = this._likes.length;
+    }
+    
 
     _putLikeHandler() {
         this._putLikeHandler();
@@ -48,7 +55,7 @@ export default class Card {
         } else {
             this._cardDeleteButton.classList.remove('.cards__delete-button_visible');
         }
-        
+
         this._cardImage = this._element.querySelector('.cards__image');
 
         this._cardLikeButton.addEventListener('click', (evt) => {
@@ -68,6 +75,7 @@ export default class Card {
         this._element = this._getTemplate();
         this._element.querySelector('.cards__image').src = this._cardImage;
         this._element.querySelector('.cards__heading').textContent = this._cardHeading;
+        this._countLikes();
 
         this._setEventListeners();
     

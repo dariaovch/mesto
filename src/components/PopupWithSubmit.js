@@ -8,14 +8,6 @@ export default class PopupWithSubmit extends Popup {
             this._form = this._popup.querySelector('.popup__form');
         }
 
-        renderLoading(isLoading) {
-            if(!isLoading) {
-                this._submitButton.textContent = 'Да';
-            } else {
-                this._submitButton.textContent = 'Сохранение...'
-            }
-        }
-
         setEventListeners() {
             this._form.addEventListener('submit', (evt) => {
                 evt.preventDefault();

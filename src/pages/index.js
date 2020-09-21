@@ -1,5 +1,7 @@
 import '../pages/index.css';
-import { profileName, profileOccupation, openEditProfilePopupButton, openAddCardPopupButton, editForm, addCardForm, updateAvatarForm, inputName, inputOccupation, grid, objectOfValidation, options } from '../utils/constants.js';
+import { profileName, profileOccupation, profileAvatar, openEditProfilePopupButton, openAddCardPopupButton, editForm, addCardForm, updateAvatarForm, deleteCardForm, inputName, inputOccupation, grid, objectOfValidation, options 
+} from '../utils/constants.js';
+import { renderLoading } from '../utils/utils.js';
 import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -17,13 +19,12 @@ api.getAllPageData()
     .then((argument) => {
         const [ userData, cardsData ] = argument;
 
-        profileName.textContent = userData.name;
-        profileOccupation.textContent = userData.about;
-        const profileInfo = new UserInfo({ nameElement: profileName, occupationElement: profileOccupation });
+        const profileInfo = new UserInfo({ nameElement: profileName, occupationElement: profileOccupation, avatarElement: profileAvatar });
+        profileInfo.setUserInfo(userData);
 
         const editProfilePopup = new PopupWithForm(".popup_type_edit-profile", {
             submitHandler: (formData) => {
-                editProfilePopup.renderLoading(true);
+                renderLoading(true, editForm, 'Сохранить');
                 api.saveEditedInfo(formData)
                     .then((formData) => {
                         profileInfo.setUserInfo(formData);
@@ -33,7 +34,7 @@ api.getAllPageData()
                         console.log(err);
                     })
                     .finally(() => {
-                        editProfilePopup.renderLoading(false);
+                        renderLoading(false, editForm, 'Сохранить');
                     });
             },
         });
@@ -44,13 +45,10 @@ api.getAllPageData()
             inputOccupation.value = profileInfoElement.about;
         });
         editProfilePopup.setEventListeners();
-
-        const profileAvatar = document.querySelector(".profile__avatar");
-        profileAvatar.src = userData.avatar;
         
         const updateAvatarPopup = new PopupWithForm(".popup_type_update-avatar", {
             submitHandler: (formData) => {
-                updateAvatarPopup.renderLoading(true);
+                renderLoading(true, updateAvatarForm, 'Обновить');
                 api.updateAvatar(formData)
                     .then((data) => {
                         profileAvatar.src = data.avatar;
@@ -60,7 +58,7 @@ api.getAllPageData()
                         console.log(err);
                     })
                     .finally(() => {
-                        updateAvatarPopup.renderLoading(false);
+                        renderLoading(false, updateAvatarForm, 'Обновить');
                     });
             },
         });
@@ -71,6 +69,8 @@ api.getAllPageData()
         });
 
         updateAvatarPopup.setEventListeners();
+
+        const userId = userData._id;
 
         const cardRenderer = (item, isArray) => {
             const card = new Card(
@@ -83,7 +83,6 @@ api.getAllPageData()
                     putLikeHandler: () => {
                         api.putLike(item._id)
                             .then((item) => {
-                                console.log(item);
                                 likeCounter.textContent = item.likes.length;
                             })
                             .catch((err) => {
@@ -94,7 +93,6 @@ api.getAllPageData()
                     deleteLikeHandler: () => {
                         api.deleteLike(item._id)
                             .then((item) => {
-                                console.log(item);
                                 likeCounter.textContent = item.likes.length;
                             })
                             .catch((err) => {
@@ -105,7 +103,7 @@ api.getAllPageData()
                     deleteHandler: () => {
                         const deleteCardPopup = new PopupWithSubmit(".popup_type_delete-card", {
                             submitHandler: () => {
-                                deleteCardPopup.renderLoading(true);
+                                renderLoading(true, deleteCardForm, 'Да');
                                 api.deleteCard(item._id)
                                     .then(() => {
                                         cardElement.remove();
@@ -115,7 +113,7 @@ api.getAllPageData()
                                         console.log(err);
                                     })
                                     .finally(() => {
-                                        deleteCardPopup.renderLoading(false);
+                                        renderLoading(false, deleteCardForm, 'Да');
                                     });
                             },
                         });
@@ -123,14 +121,13 @@ api.getAllPageData()
                         deleteCardPopup.setEventListeners();
                     },
                 },
-                ".cards__template"
+                ".cards__template", 
+                userId
             );
 
             const cardElement = card.createCard(item.owner._id);
-            const likeCounter = cardElement.querySelector(".cards__like-counter");
+            const likeCounter = cardElement.querySelector('.cards__like-counter')
 
-            const likes = item.likes;
-            likeCounter.textContent = likes.length;
 
             cardGrid.addItem(cardElement, isArray);
         };
@@ -149,7 +146,7 @@ api.getAllPageData()
 
         const addCardPopup = new PopupWithForm(".popup_type_add-card", {
             submitHandler: (item, isArray) => {
-                addCardPopup.renderLoading(true);
+                renderLoading(true, addCardForm, 'Создать');
                 api.addNewCard(item)
                     .then((data) => {
                         cardRenderer(data, isArray);
@@ -159,7 +156,7 @@ api.getAllPageData()
                         console.log(err);
                     })
                     .finally(() => {
-                        addCardPopup.renderLoading(false);
+                        renderLoading(false, addCardForm, 'Создать');
                     });
             },
         });
