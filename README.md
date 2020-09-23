@@ -1,6 +1,6 @@
 # Проект 4: Место
 
-https://dariaovch.github.io/mesto/index.html
+https://dariaovch.github.io/mesto/
 
 ### Обзор
 
