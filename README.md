@@ -1,4 +1,4 @@
-# Проект 4: Место
+# Проект 3: Место
 
 https://dariaovch.github.io/mesto/
 
